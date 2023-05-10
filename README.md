@@ -17,9 +17,69 @@ This project integrates Coralogix with various APIs to collect audit logs and se
 
 ## Usage
 
-A helm chart is available [here](./chart/README.md).
+### Chart
 
-You can also run each integration by itself using `docker`. Visit the integration's README for more information.
+A helm chart is available [here](./chart/README.md), TL;DR:
+
+```bash
+helm upgrade --install coralogix-audit-collector \
+    --namespace $NAMESPACE \
+    --create-namespace \
+    --values ./values.yaml \
+    --repo https://coralogix.github.io/helm-charts \
+```
+
+### Docker
+
+You can also run each integration by itself using `docker`. 
+
+```bash
+docker run -it --rm  \
+    -e CORALOGIX_LOG_URL="https://ingress.eu2.coralogix.com/api/v1/logs" \
+    -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
+    -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
+    -e INTEGRATION_NAME="$INTEGRATION_NAME" \
+    coralogixrepo/coralogix-audit-collector
+```
+
+#### JIRA Example
+
+```bash
+docker run -it --rm \
+    -e CORALOGIX_LOG_URL="https://ingress.eu2.coralogix.com/api/v1/logs" \
+    -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
+    -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
+    -e JIRA_USERNAME="$JIRA_USERNAME" \
+    -e JIRA_API_TOKEN="$JIRA_API_TOKEN" \
+    coralogixrepo/coralogix-audit-collector
+```
+
+#### Google Workspace Example
+
+`GOOGLE_APPLICATION_CREDENTIALS` is optional. Running this directly on a GCP instance will use the instance's service account.
+
+```bash
+GOOGLE_APPLICATION_CREDENTIALS="/app/src/apis/googleworkspace/credentials.json"
+GOOGLE_TARGET_PRINCIPAL="...@....iam.gserviceaccount.com"
+LOG_TYPE="saml,drive,calendar,login,admin,groups,user_accounts,gcp,mobile"
+
+docker run -it --rm \
+    -e CORALOGIX_LOG_URL="https://ingress.eu2.coralogix.com/api/v1/logs" \
+    -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
+    -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
+    -e GOOGLE_APPLICATION_CREDENTIALS="$GOOGLE_APPLICATION_CREDENTIALS" \
+    -e GOOGLE_TARGET_PRINCIPAL="$GOOGLE_TARGET_PRINCIPAL" \
+    -e IMPERSONATE_USER_EMAIL="$IMPERSONATE_USER_EMAIL" \
+    -e LOG_TYPES="$LOG_TYPES" \
+    coralogixrepo/coralogix-audit-collector
+```
+
+### Notes
+
+* You can avoid sending logs to Coralogix by setting `-e DRY_RUN=true`.
+* You can include the debug logs by setting `-e DEBUG=true`.
+
+Visit the integration's README for more information.
 
 ## Integrations
 
