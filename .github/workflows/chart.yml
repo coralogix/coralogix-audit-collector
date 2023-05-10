@@ -1,0 +1,71 @@
+name: Audit-Logs-Coralogix-Chart
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+      - 'chart/values.yaml'
+      - 'chart/templates/**'
+      - 'chart/Chart.yaml'
+      - '.github/workflows/chart.yml'
+
+  workflow_dispatch:
+
+env:
+  DOCKERHUB_REGISTRY: coralogixrepo/chart
+  CHART_NAME: coralogix-audit-collector
+  ARTIFACTORY_URL: https://cgx.jfrog.io/artifactory/
+  ARTIFACTORY_USERNAME: integrations-actions
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: paulhatch/semantic-version@v5.0.2
+        id: chartVersion
+        with:
+          tag_prefix: "v"
+          major_pattern: "(MAJOR)"
+          minor_pattern: "(MINOR)"
+          version_format: "${major}.${minor}.${patch}"
+          change_path: "chart/ .github/workflows/chart.yml"
+          bump_each_commit: true
+
+      - uses: paulhatch/semantic-version@v5.0.2
+        id: appVersion
+        with:
+          tag_prefix: "v"
+          major_pattern: "(APP_MAJOR)"
+          minor_pattern: "(APP_MINOR)"
+          version_format: "${major}.${minor}.${patch}"
+          change_path: "src/ main.go main_test.go .github/workflows/image.yml"
+          bump_each_commit: true
+
+      - name: Set CHART_VERSION env var
+        run: |
+          echo "CHART_VERSION=${{ steps.chartVersion.outputs.version_tag }}" >> $GITHUB_ENV
+      - name: Setup Helm Repo
+        run: |
+          helm repo add coralogix-charts-virtual ${{ env.ARTIFACTORY_URL }}coralogix-charts-virtual
+          helm repo update
+          cd chart
+          helm package . --version ${{ steps.chartVersion.outputs.version_tag }} --app-version ${{ steps.appVersion.outputs.version }}
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v2.1.0
+        with:
+          version: 2.12.1
+      - name: use-jfrog-cli
+        run: |
+          cd chart
+          jfrog rt upload \
+            --access-token ${{ secrets.ARTIFACTORY_TOKEN }} \
+            "${{ env.CHART_NAME }}-*.tgz" \
+            coralogix-charts \
+            --url ${{ env.ARTIFACTORY_URL }}

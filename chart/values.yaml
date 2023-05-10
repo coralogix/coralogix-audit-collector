@@ -1,0 +1,48 @@
+coralogixLogUrl: "https://ingress.eu2.coralogix.com/api/v1/logs"
+coralogixAppName: "c4c-it"
+integrationSearchDiffInMinutes: "5"
+integrations:
+  lastpass:
+    enabled: false
+    env:
+      - name: "LASTPASS_APIUSER"
+        value: "c4c-ir"
+  monday:
+    enabled: false
+  zoom:
+    enabled: false
+    baseUrl: "https://api.zoom.us"
+    env:
+      - name: "ACCESS_TOKEN_URL"
+        value: "https://zoom.us"
+  intercom:
+    enabled: false
+    baseUrl: "https://api.intercom.io"
+  jfrog:
+    enabled: false
+    overrideSearchDiffInMinutes: 1440
+  jamfprotect:
+    enabled: false
+  confluence:
+    enabled: false
+  jira:
+    enabled: false
+  hackerone:
+    enabled: false
+    baseUrl: "https://api.hackerone.com"
+  googleworkspace:
+    enabled: false
+cron:
+  schedule: "*/5 * * * *"
+secretName: coralogix-audit-collector-secret
+image:
+  repository: coralogixrepo/coralogix-audit-collector
+  pullPolicy: IfNotPresent
+  tag: "0.0.37"
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

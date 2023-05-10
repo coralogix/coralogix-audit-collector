@@ -1,0 +1,76 @@
+{{- $context := . }}
+{{- range $integrationName, $integration := .Values.integrations }}
+{{- if $integration.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "coralogix-audit-collector.fullname" $context }}-{{ $integrationName }}
+  labels:
+    {{- include "coralogix-audit-collector.labels" $context | nindent 4 }}
+spec:
+  {{- if hasKey $integration "schedule" }}
+  schedule: "{{ $integration.schedule }}"
+  {{- else }}
+  schedule: "{{ $context.Values.cron.schedule }}"
+  {{- end }}
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  jobTemplate:
+      metadata:
+        labels:
+          {{- include "coralogix-audit-collector.selectorLabels" $context | nindent 10 }}
+      spec:
+        backoffLimit: 3
+        completions: 1
+        parallelism: 1
+        template:
+          spec:
+            containers:
+            - name: {{ $context.Chart.Name }}
+              image: "{{ $context.Values.image.repository }}:{{ $context.Values.image.tag | default $context.Chart.AppVersion }}"
+              imagePullPolicy: {{ $context.Values.image.pullPolicy }}
+              {{- with $context.Values.resources }}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              env:
+              - name: INTEGRATION_NAME
+                value: "{{ $integrationName }}"
+              - name: "INTEGRATION_SEARCH_DIFF_IN_MINUTES"
+              {{- if hasKey $integration "overrideSearchDiffInMinutes" }}
+                value: "{{ $integration.overrideSearchDiffInMinutes }}"
+              {{- else }}
+                value: "{{ $context.Values.integrationSearchDiffInMinutes }}"
+              {{- end }}
+              {{- if hasKey $integration "baseUrl" }}
+              - name: "BASE_URL"
+                value: "{{ $integration.baseUrl }}"
+              {{- end -}}
+              {{- with $integration.env -}}
+              {{- toYaml . | nindent 14 }}
+              {{- end }}
+              envFrom:
+              - configMapRef:
+                  name: {{ include "coralogix-audit-collector.fullname" $context }}
+              - secretRef:
+                  name: "{{ $context.Values.secretName }}"
+            restartPolicy: OnFailure
+            {{- with $context.Values.imagePullSecrets }}
+            imagePullSecrets:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with $context.Values.nodeSelector }}
+            nodeSelector:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with $context.Values.tolerations }}
+            tolerations:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with $context.Values.affinity }}
+            affinity:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+---
+{{- end }}
+{{- end }}

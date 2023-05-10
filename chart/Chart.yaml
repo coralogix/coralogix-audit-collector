@@ -1,0 +1,10 @@
+apiVersion: v2
+name: coralogix-audit-collector
+description: Coralogix Audit Logs Collector
+keywords:
+- audit logs
+type: application
+version: 0.1.0
+maintainers:
+- name: Coralogix
+  email: platform@coralogix.com

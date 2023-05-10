@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "coralogix-audit-collector.fullname" . }}
+  labels:
+    {{- include "coralogix-audit-collector.labels" . | nindent 4 }}
+data:
+  CORALOGIX_LOG_URL: "{{ .Values.coralogixLogUrl }}"
+  CORALOGIX_APP_NAME: "{{ .Values.coralogixAppName }}"
