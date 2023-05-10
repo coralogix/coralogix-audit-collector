@@ -1,6 +1,6 @@
-# Integrations for Incident Response
+# Coralogix Audit Collector
 
-This repository contains a collection of integrations for incident response.
+This project integrates Coralogix with various APIs to collect audit logs and send them to Coralogix.
 
 ## Requirements
 
@@ -15,6 +15,11 @@ This repository contains a collection of integrations for incident response.
 | `CORALOGIX_PRIVATE_KEY` | Coralogix private key | `UUID`                                          |
 | `CORALOGIX_APP_NAME` | Coralogix application name | `APP_NAME`                                      |
 
+## Usage
+
+A helm chart is available [here](./chart/README.md).
+
+You can also run each integration by itself using `docker`. Visit the integration's README for more information.
 
 ## Integrations
 
@@ -30,24 +35,18 @@ This repository contains a collection of integrations for incident response.
 - [Atlassian](src/apis/atlassian/README.md)
 - [HackerOne](src/apis/hackerone/README.md)
 - [Google Workspace](src/apis/googleworkspace/README.md)
+
+### TBD
+
+- Cloudtrail
+- Slack TBD
+- Notion TBD
 - Pritnul
 - Jfrog
 - Imperva
 - SalesForce
 - K8s audit
 - Teleport
-
-### Built-in integrations in Coralogix
-
-- Cloudtrail
-
-### Webhooks
-
-### Known limitations
-
-- [Slack TBD](#TBD) - Requires an Enterprise Account
-- [Notion TBD](#TBD) - Requires an Enterprise Account
-- Lastpass doesn't support pagination
 
 ## Known issues
 
