@@ -39,7 +39,7 @@ docker run -it --rm  \
     -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
     -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
     -e INTEGRATION_NAME="$INTEGRATION_NAME" \
-    coralogixrepo/coralogix-audit-collector
+    coralogixrepo/audit-logs-collector
 ```
 
 #### JIRA Example
@@ -51,7 +51,10 @@ docker run -it --rm \
     -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
     -e JIRA_USERNAME="$JIRA_USERNAME" \
     -e JIRA_API_TOKEN="$JIRA_API_TOKEN" \
-    coralogixrepo/coralogix-audit-collector
+    -e INTEGRATION_NAME="jira" \
+    -e BASE_URL="https://your-org.atlassian.net" \
+    -e DRY_RUN="true" \
+    coralogixrepo/audit-logs-collector
 ```
 
 #### Google Workspace Example
@@ -70,14 +73,17 @@ docker run -it --rm \
     -e GOOGLE_APPLICATION_CREDENTIALS="$GOOGLE_APPLICATION_CREDENTIALS" \
     -e GOOGLE_TARGET_PRINCIPAL="$GOOGLE_TARGET_PRINCIPAL" \
     -e IMPERSONATE_USER_EMAIL="$IMPERSONATE_USER_EMAIL" \
+    -e INTEGRATION_NAME="googleworkspace" \
     -e LOG_TYPES="$LOG_TYPES" \
-    coralogixrepo/coralogix-audit-collector
+    -e DRY_RUN="true" \
+    coralogixrepo/audit-logs-collector
 ```
 
 ### Notes
 
 * You can avoid sending logs to Coralogix by setting `-e DRY_RUN=true`.
 * You can include the debug logs by setting `-e DEBUG=true`.
+* You can override the default time range by setting `-e INTEGRATION_SEARCH_DIFF_IN_MINUTES=60m`.
 
 Visit the integration's README for more information.
 
@@ -107,6 +113,7 @@ Visit the integration's README for more information.
 - SalesForce
 - K8s audit
 - Teleport
+- Replace `INTEGRATION_SEARCH_DIFF_IN_MINUTES` with `INTEGRATION_SEARCH_DIFF=1h` (or `1d`, or `30m`, etc.).
 
 ## Known issues
 
