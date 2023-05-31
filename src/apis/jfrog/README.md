@@ -30,7 +30,7 @@ docker run -it --rm \
     -e JFROG_API_TOKEN="$JFROG_API_TOKEN" \
     -e BASE_URL="$BASE_URL" \
     -e DRY_RUN="true" \
-    coralogixrepo/audit-logs-collector
+    coralogixrepo/coralogix-audit-collector
 ```
 
 ### Running (dev)

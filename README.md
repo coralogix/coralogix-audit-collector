@@ -39,7 +39,7 @@ docker run -it --rm  \
     -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
     -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
     -e INTEGRATION_NAME="$INTEGRATION_NAME" \
-    coralogixrepo/audit-logs-collector
+    coralogixrepo/coralogix-audit-collector
 ```
 
 #### JIRA Example
@@ -54,7 +54,7 @@ docker run -it --rm \
     -e INTEGRATION_NAME="jira" \
     -e BASE_URL="https://your-org.atlassian.net" \
     -e DRY_RUN="true" \
-    coralogixrepo/audit-logs-collector
+    coralogixrepo/coralogix-audit-collector
 ```
 
 #### Google Workspace Example
@@ -76,7 +76,7 @@ docker run -it --rm \
     -e INTEGRATION_NAME="googleworkspace" \
     -e LOG_TYPES="$LOG_TYPES" \
     -e DRY_RUN="true" \
-    coralogixrepo/audit-logs-collector
+    coralogixrepo/coralogix-audit-collector
 ```
 
 ### Notes
