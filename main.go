@@ -7,6 +7,7 @@ import (
 	"github.com/coralogix/c4c-ir-integrations/src/apis/hackerone"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/intercom"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/jamfprotect"
+	"github.com/coralogix/c4c-ir-integrations/src/apis/jfrog"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/jira"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/lastpass"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/monday"
@@ -34,6 +35,7 @@ var (
 		"confluence":      confluence.NewFromEnv,
 		"jira":            jira.NewFromEnv,
 		"googleworkspace": googleworkspace.NewFromEnv,
+		"jfrog":           jfrog.NewFromEnv,
 	}
 )
 
