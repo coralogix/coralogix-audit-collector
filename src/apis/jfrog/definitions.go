@@ -8,7 +8,7 @@ import (
 var (
 	username = os.Getenv("JFROG_USERNAME")
 	apiToken = os.Getenv("JFROG_API_TOKEN")
-	baseUrl  = os.Getenv("JFROG_BASE_URL")
+	baseUrl  = os.Getenv("BASE_URL")
 )
 
 func validateEnvVars() {
@@ -19,6 +19,6 @@ func validateEnvVars() {
 		logrus.Fatal("JFROG_API_TOKEN env var is not set")
 	}
 	if baseUrl == "" {
-		logrus.Fatal("JFROG_BASE_URL env var is not set")
+		logrus.Fatal("BASE_URL env var is not set")
 	}
 }

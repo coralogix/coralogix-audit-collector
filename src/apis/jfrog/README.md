@@ -12,11 +12,11 @@ This is a simple script to integrate with Jfrog's reporting API and report to a 
 
 ### Environment variables
 
-| Variable | Description                              | Example                 |
-|----------|------------------------------------------|-------------------------|
- | `JFROG_USERNAME` | The app username                         | `somename`              |
+| Variable          | Description                              | Example                 |
+|-------------------|------------------------------------------|-------------------------|
+ | `JFROG_USERNAME`  | The app username                         | `somename`              |
 | `JFROG_API_TOKEN` | The generated API token                  | `a-65-chars-string`     |
-| `JFROG_BASE_URL` | The base URL for the JFrog instance     | `https://name.jfrog.io` |
+| `BASE_URL`        | The base URL for the JFrog instance     | `https://name.jfrog.io` |
 
 ### Running (prod)
 
@@ -28,7 +28,7 @@ docker run -it --rm \
     -e INTEGRATION_NAME="jfrog" \
     -e JFROG_USERNAME="$JFROG_USERNAME" \
     -e JFROG_API_TOKEN="$JFROG_API_TOKEN" \
-    -e JFROG_BASE_URL="$JFROG_BASE_URL" \
+    -e BASE_URL="$BASE_URL" \
     -e DRY_RUN="true" \
     coralogixrepo/audit-logs-collector
 ```
@@ -45,7 +45,7 @@ docker run -it --rm \                                                           
     -e INTEGRATION_NAME="jfrog" \
     -e JFROG_USERNAME="$JFROG_USERNAME" \
     -e JFROG_API_TOKEN="$JFROG_API_TOKEN" \
-    -e JFROG_BASE_URL="$JFROG_BASE_URL" \
+    -e BASE_URL="$BASE_URL" \
     -p 6000:6000 \
     -v $(pwd):/app/src \
     cosmtrek/air -c air.toml
