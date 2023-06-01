@@ -104,13 +104,19 @@ jobs:
           cmd: |
             yq -i '.image.tag = "${{ steps.appVersion.outputs.version }}"' './chart/values.yaml'
 
-      - name: Push changes
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILE_TO_COMMIT: chart/values.yaml
+          DESTINATION_BRANCH: master
         run: |
           NEW_APP_VERSION="${{ steps.appVersion.outputs.version }}"
-          echo "Updating image version to $NEW_APP_VERSION"
-          git pull
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add ./chart/values.yaml
-          git commit -m "auto: update default version to $NEW_APP_VERSION" --allow-empty
-          git push
+          export MESSAGE="auto: update default version to $NEW_APP_VERSION"
+          export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
+          export CONTENT=$( base64 -i $FILE_TO_COMMIT )
+          gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$DESTINATION_BRANCH" \
+            --field sha="$SHA"
