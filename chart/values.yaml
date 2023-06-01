@@ -21,6 +21,7 @@ integrations:
   jfrog:
     enabled: false
     overrideSearchDiffInMinutes: 1440
+    schedule: "0 0 * * *"
   jamfprotect:
     enabled: false
   confluence:
