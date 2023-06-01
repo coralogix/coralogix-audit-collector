@@ -29,7 +29,7 @@ helm upgrade --install coralogix-audit-collector \
     --namespace $NAMESPACE \
     --create-namespace \
     --values ./values.yaml \
-    --repo https://coralogix.github.io/helm-charts \
+    --repo https://cgx.jfrog.io/artifactory/coralogix-charts-virtual
 ```
 
 ### Values.yaml
