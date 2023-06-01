@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/coralogix/go-coralogix-sdk v1.0.3
 	github.com/sirupsen/logrus v1.6.0
+	github.com/slack-go/slack v0.12.2
 	golang.org/x/oauth2 v0.6.0
 	google.golang.org/api v0.112.0
 )
@@ -17,6 +18,7 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.3 // indirect
 	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	golang.org/x/net v0.8.0 // indirect

@@ -11,6 +11,7 @@ import (
 	"github.com/coralogix/c4c-ir-integrations/src/apis/jira"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/lastpass"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/monday"
+	"github.com/coralogix/c4c-ir-integrations/src/apis/slack"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/zoom"
 	"github.com/coralogix/c4c-ir-integrations/src/coralogix"
 	debug2 "github.com/coralogix/c4c-ir-integrations/src/debug"
@@ -36,6 +37,7 @@ var (
 		"jira":            jira.NewFromEnv,
 		"googleworkspace": googleworkspace.NewFromEnv,
 		"jfrog":           jfrog.NewFromEnv,
+		"slack":           slack.NewFromEnv,
 	}
 )
 
@@ -57,6 +59,7 @@ func main() {
 
 func runIntegration(integrationName, integrationSearchDiffInMinutes string, dryRun bool) {
 	integrationSearchDiffInMinutesInt, _ := strconv.Atoi(integrationSearchDiffInMinutes)
+	logrus.Debugf("Running integration %s with search diff in minutes %d", integrationName, integrationSearchDiffInMinutesInt)
 	timePeriodManager := integration.NewTimePeriodManagerFromNow(integrationSearchDiffInMinutesInt)
 	api := integrations[integrationName]()
 	var collector Collector

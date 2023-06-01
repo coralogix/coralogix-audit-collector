@@ -33,6 +33,9 @@ integrations:
     baseUrl: "https://api.hackerone.com"
   googleworkspace:
     enabled: false
+  slack:
+    enabled: false
+    baseUrl: "https://api.slack.com"
 cron:
   schedule: "*/5 * * * *"
 secretName: coralogix-audit-collector-secret
