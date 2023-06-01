@@ -21,14 +21,6 @@ This project integrates Coralogix with various APIs to collect audit logs and se
 
 A helm chart is available [here](./chart/README.md), TL;DR:
 
-```bash
-helm upgrade --install coralogix-audit-collector \
-    --namespace $NAMESPACE \
-    --create-namespace \
-    --values ./values.yaml \
-    --repo https://coralogix.github.io/helm-charts \
-```
-
 ### Docker
 
 You can also run each integration by itself using `docker`. 
