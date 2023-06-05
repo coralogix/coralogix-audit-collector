@@ -93,14 +93,14 @@ Visit the integration's README for more information.
 - [Atlassian](src/apis/atlassian/README.md)
 - [HackerOne](src/apis/hackerone/README.md)
 - [Google Workspace](src/apis/googleworkspace/README.md)
+- [Jfrog](src/apis/jfrog/README.md)
+- [Slack](src/apis/slack/README.md)
 
 ### TBD
 
 - Cloudtrail
-- Slack TBD
 - Notion TBD
 - Pritnul
-- Jfrog
 - Imperva
 - SalesForce
 - K8s audit
