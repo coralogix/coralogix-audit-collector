@@ -13,12 +13,32 @@ This is a simple script to integrate with admin.google.com's reporting API and r
 
 | Variable | Description           | Example | Required |
 |----------|-----------------------|---------| -------- |
-| GOOGLE_JSON_KEY | The Service ACcount JSON key | `{... }` | Yes |
 | IMPERSONATE_USER_EMAIL | The user to impersonate | `admin@yourdomain.com` | Yes |
+| GOOGLE_TARGET_PRINCIPAL | The service account to impersonate | `...@....iam.gserviceaccount.com` | Yes |
+| GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
+| GOOGLE_JSON_KEY | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
 | LOG_TYPES | Comma separated list of log types to fetch | supported: `saml,drive,calendar,login,admin,groups,user_accounts,gcp,mobile` (default)   | No |
 | IGNORED_AUDIT_PARAMETERS | Comma separated list of audit parameters to ignore | e.g `IGNORED_AUDIT_PARAMETERS=doc_title` so that the name of the documents won't show in your logs. | No |
 
-## Running
+## Running (prod)
+
+```shell
+export IMPERSONATE_USER_EMAIL="user@yourdomain"
+export INTEGRATION_SEARCH_DIFF_IN_MINUTES="5"
+export GOOGLE_TARGET_PRINCIPAL="...@....iam.gserviceaccount.com"
+docker run -it --rm \
+    -e CORALOGIX_LOG_URL="https://ingress.eu2.coralogix.com/api/v1/logs" \
+    -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
+    -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
+    -e INTEGRATION_SEARCH_DIFF_IN_MINUTES="$INTEGRATION_SEARCH_DIFF_IN_MINUTES"
+    -e INTEGRATION_NAME="googleworkspace" \
+    -e IMPERSONATE_USER_EMAIL="$IMPERSONATE_USER_EMAIL" \
+    -e BASE_URL="$BASE_URL" \
+    -e DRY_RUN="true" \
+    coralogixrepo/coralogix-audit-collector
+```
+
+## Running (dev)
 
 ```
 docker run -it --rm \
