@@ -14,8 +14,8 @@ Using the [.env.example](.env.example) file, create a secret with your integrati
 export NAMESPACE="coralogix-audit-collector"
 
 kubectl -n $NAMESPACE create secret generic \
-    integrations-secrets \
-    --from-file=./.env.example \
+    coralogix-audit-collector-secret \
+    --from-env-file=./.env.example \
     --save-config \
     --dry-run=client \
     -o yaml |\
@@ -26,6 +26,7 @@ Then install the chart:
 
 ```bash
 helm upgrade --install coralogix-audit-collector \
+    coralogix-audit-collector \
     --namespace $NAMESPACE \
     --create-namespace \
     --values ./values.yaml \
@@ -38,8 +39,8 @@ Each integration contains the following values:
 
 | Parameter | Description | Default | Required                                                |
 |-----------|-------------|---------|---------------------------------------------------------|
-| `enabled` | Whether to enable the integration | `false` | Yes                                                     |
- | `baseUrl` | Base URL for the integration | `""` | Yes                                                     |
+| `enabled` | Whether to enable the integration | `false` | Yes |
+| `baseUrl` | Base URL for the integration | `""` | Yes |
 | `schedule` | Cron schedule | "" | No - if not defined `.Values.cron.schedule` will be used |
 
 ## Integrations
