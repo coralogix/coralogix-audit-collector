@@ -8,7 +8,18 @@ This chart create a cronjob that collects audit logs from different sources and 
 
 ## Installing the Chart
 
-Using the [.env.example](.env.example) file, create a secret with your integrations configuration:
+Using an `.env` file, create a secret with your integrations configuration:
+:warning: Note: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret.
+
+`.env.example ` example
+
+```
+CORALOGIX_PRIVATE_KEY=<CX_PrivateKey>
+IMPERSONATE_USER_EMAIL=admin@mail.com
+GOOGLE_TARGET_PRINCIPAL=useraccount.iam.gserviceaccount.com
+LASTPASS_CID=<LassPass_CID>
+LASTPASS_PROVHASH=<LassPass_Prov_Hash>
+```
 
 ```bash
 export NAMESPACE="coralogix-audit-collector"
