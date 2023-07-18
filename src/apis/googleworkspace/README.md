@@ -2,14 +2,14 @@
 
 This is a simple script to integrate with admin.google.com's reporting API and report to a Coralogix account. It replaces the [built-in fluentd Google Workspace integration](https://coralogix.com/docs/google-workspace-integration/).
 
-## Requirements
+### Requirements
 
 - Enable Admin SDK API - https://console.developers.google.com/apis/api/admin.googleapis.com/overview?project=YOUR_PROJECT_ID
 - Create a Service Account with Domain-Wide Delegation - https://developers.google.com/workspace/guides/create-credentials#service-account
 
-# Development/Usage
+## Development/Usage
 
-## Environment variables
+### Environment variables
 
 | Variable | Description           | Example | Required |
 |----------|-----------------------|---------| -------- |
@@ -23,7 +23,7 @@ This is a simple script to integrate with admin.google.com's reporting API and r
 - Exclude `GOOGLE_TARGET_PRINCIPAL` when using `GOOGLE_JSON_KEY` as the later json key's service account is already in use for authentication and pointing to.
 - The service account used in `GOOGLE_TARGET_PRINCIPAL` and `GOOGLE_JSON_KEY` should have a role attached with the iam.serviceAccounts.signJwtpolicy.
 
-## Running (prod)
+### Running (prod)
 
 ```shell
 export IMPERSONATE_USER_EMAIL="user@yourdomain"
@@ -41,7 +41,7 @@ docker run -it --rm \
     coralogixrepo/coralogix-audit-collector
 ```
 
-## Running (dev)
+### Running (dev)
 
 ```
 docker run -it --rm \
@@ -58,7 +58,7 @@ docker run -it --rm \
     cosmtrek/air -c air.toml
 ```
 
-## References
+### References
 
 - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin
 - https://developers.google.com/workspace/guides/create-credentials#service-account
