@@ -9,9 +9,10 @@ This chart create a cronjob that collects audit logs from different sources and 
 ## Installing the Chart
 
 Using an `.env` file, create a secret with your integrations configuration:
+
 :warning: Note: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret.
 
-`.env.example ` example
+**`.env.example ` Example**
 
 ```
 CORALOGIX_PRIVATE_KEY=<CX_PrivateKey>
