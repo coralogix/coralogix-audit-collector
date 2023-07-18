@@ -58,7 +58,7 @@ docker run -it --rm \
     cosmtrek/air -c air.toml
 ```
 
-### References
+## References
 
 - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin
 - https://developers.google.com/workspace/guides/create-credentials#service-account
