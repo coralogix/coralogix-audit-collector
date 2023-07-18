@@ -13,12 +13,15 @@ This is a simple script to integrate with admin.google.com's reporting API and r
 
 | Variable | Description           | Example | Required |
 |----------|-----------------------|---------| -------- |
-| IMPERSONATE_USER_EMAIL | The user to impersonate | `admin@yourdomain.com` | Yes |
-| GOOGLE_TARGET_PRINCIPAL | The service account to impersonate | `...@....iam.gserviceaccount.com` | Yes |
-| GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
-| GOOGLE_JSON_KEY | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
+| IMPERSONATE_USER_EMAIL | The google workspace user to impersonate | `admin@yourdomain.com` | Yes |
+| GOOGLE_TARGET_PRINCIPAL | The service account with permissions to impersonate if not using the default `GOOGLE_APPLICATION_CREDENTIALS`. | `...@....iam.gserviceaccount.com` | Yes |
+| GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key of the running machine. | `{... }` | NO |
+| GOOGLE_JSON_KEY | The service account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
 | LOG_TYPES | Comma separated list of log types to fetch | supported: `saml,drive,calendar,login,admin,groups,user_accounts,gcp,mobile` (default)   | No |
 | IGNORED_AUDIT_PARAMETERS | Comma separated list of audit parameters to ignore | e.g `IGNORED_AUDIT_PARAMETERS=doc_title` so that the name of the documents won't show in your logs. | No |
+
+- Exclude `GOOGLE_TARGET_PRINCIPAL` when using `GOOGLE_JSON_KEY` as the later json key's service account is already in use for authentication and pointing to.
+- The service account used in `GOOGLE_TARGET_PRINCIPAL` and `GOOGLE_JSON_KEY` should have a role attached with the iam.serviceAccounts.signJwtpolicy.
 
 ## Running (prod)
 

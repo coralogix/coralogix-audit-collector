@@ -47,6 +47,12 @@ helm upgrade --install coralogix-audit-collector \
 
 ### Values.yaml
 
+Global values:
+
+| Parameter | Description | Default | Required                                                |
+|-----------|-------------|---------|---------------------------------------------------------|
+| `coralogixLogUrl` | Coralogix audit logs endpoint: `https://ingress.<coralogix_domain>/api/v1/logs`  | `""` | Yes |
+
 Each integration contains the following values:
 
 | Parameter | Description | Default | Required                                                |
