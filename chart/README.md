@@ -10,7 +10,7 @@ This chart create a cronjob that collects audit logs from different sources and 
 
 Using an `.env` file, create a secret with your integrations configuration:
 
-:warning: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret.
+Note: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret. :warning:
 
 `.env.example ` example:
 
@@ -22,7 +22,7 @@ LASTPASS_CID=<LassPass_CID>
 LASTPASS_PROVHASH=<LassPass_Prov_Hash>
 ```
 
-Create the kubernetes secret:
+Create a kubernetes secret to store configs:
 
 ```bash
 export NAMESPACE="coralogix-audit-collector"
