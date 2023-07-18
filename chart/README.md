@@ -59,7 +59,7 @@ Each integration contains the following values:
 |-----------|-------------|---------|---------------------------------------------------------|
 | `enabled` | Whether to enable the integration | `false` | Yes |
 | `baseUrl` | Base URL for the integration | `""` | Yes |
-| `schedule` | Cron schedule | "" | No - if not defined `.Values.cron.schedule` will be used |
+| `schedule` | Cron schedule | `""` | No - if not defined `.Values.cron.schedule` will be used |
 
 ## Integrations
 

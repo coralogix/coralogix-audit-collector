@@ -7,14 +7,14 @@ This is a simple script to integrate with admin.google.com's reporting API and r
 - Enable Admin SDK API - https://console.developers.google.com/apis/api/admin.googleapis.com/overview?project=YOUR_PROJECT_ID
 - Create a Service Account with Domain-Wide Delegation - https://developers.google.com/workspace/guides/create-credentials#service-account
 
-### Development/Usage
+# Development/Usage
 
 ## Environment variables
 
 | Variable | Description           | Example | Required |
 |----------|-----------------------|---------| -------- |
 | IMPERSONATE_USER_EMAIL | The google workspace user to impersonate | `admin@yourdomain.com` | Yes |
-| GOOGLE_TARGET_PRINCIPAL | The service account with permissions to impersonate if not using the default `GOOGLE_APPLICATION_CREDENTIALS`. | `...@....iam.gserviceaccount.com` | Yes |
+| GOOGLE_TARGET_PRINCIPAL | The service account with permissions to impersonate if not using the default `GOOGLE_APPLICATION_CREDENTIALS`. | `...@....iam.gserviceaccount.com` | Yes or use `GOOGLE_JSON_KEY` |
 | GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key of the running machine. | `{... }` | NO |
 | GOOGLE_JSON_KEY | The service account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
 | LOG_TYPES | Comma separated list of log types to fetch | supported: `saml,drive,calendar,login,admin,groups,user_accounts,gcp,mobile` (default)   | No |
