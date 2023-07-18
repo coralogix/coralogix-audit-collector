@@ -12,8 +12,6 @@ Using an `.env` file, create a secret with your integrations configuration:
 
 Note: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret. :warning:
 
-`.env.example ` example:
-
 ```
 CORALOGIX_PRIVATE_KEY=<CX_PrivateKey>
 IMPERSONATE_USER_EMAIL=admin@mail.com
