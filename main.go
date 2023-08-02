@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/confluence"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/googleworkspace"
+	"github.com/coralogix/c4c-ir-integrations/src/apis/googleworkspacealertcenter"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/hackerone"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/intercom"
 	"github.com/coralogix/c4c-ir-integrations/src/apis/jamfprotect"
@@ -27,17 +28,18 @@ var (
 	integrationName                = os.Getenv("INTEGRATION_NAME")
 	debug                          = os.Getenv("DEBUG")
 	integrations                   = map[string]func() integration.API{
-		"monday":          monday.NewFromEnv,
-		"lastpass":        lastpass.NewFromEnv,
-		"intercom":        intercom.NewFromEnv,
-		"zoom":            zoom.NewFromEnv,
-		"hackerone":       hackerone.NewFromEnv,
-		"jamfprotect":     jamfprotect.NewFromEnv,
-		"confluence":      confluence.NewFromEnv,
-		"jira":            jira.NewFromEnv,
-		"googleworkspace": googleworkspace.NewFromEnv,
-		"jfrog":           jfrog.NewFromEnv,
-		"slack":           slack.NewFromEnv,
+		"monday":                     monday.NewFromEnv,
+		"lastpass":                   lastpass.NewFromEnv,
+		"intercom":                   intercom.NewFromEnv,
+		"zoom":                       zoom.NewFromEnv,
+		"hackerone":                  hackerone.NewFromEnv,
+		"jamfprotect":                jamfprotect.NewFromEnv,
+		"confluence":                 confluence.NewFromEnv,
+		"jira":                       jira.NewFromEnv,
+		"googleworkspace":            googleworkspace.NewFromEnv,
+		"googleworkspacealertcenter": googleworkspacealertcenter.NewFromEnv,
+		"jfrog":                      jfrog.NewFromEnv,
+		"slack":                      slack.NewFromEnv,
 	}
 )
 
