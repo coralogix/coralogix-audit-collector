@@ -92,7 +92,8 @@ Visit the integration's README for more information.
 - [JAMF Protect](src/apis/jamfprotect/README.md)
 - [Atlassian](src/apis/atlassian/README.md)
 - [HackerOne](src/apis/hackerone/README.md)
-- [Google Workspace](src/apis/googleworkspace/README.md)
+- [Google Workspace Admin Logs](src/apis/googleworkspace/README.md)
+- [Google Workspace Alert Center](src/apis/googleworkspacealertcenter/README.md)
 - [Jfrog](src/apis/jfrog/README.md)
 - [Slack](src/apis/slack/README.md)
 

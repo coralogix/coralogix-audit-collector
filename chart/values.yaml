@@ -33,6 +33,8 @@ integrations:
     baseUrl: "https://api.hackerone.com"
   googleworkspace:
     enabled: false
+  googleworkspacealertcenter:
+    enabled: false
   slack:
     enabled: false
     baseUrl: "https://api.slack.com"
@@ -42,7 +44,7 @@ secretName: coralogix-audit-collector-secret
 image:
   repository: coralogixrepo/coralogix-audit-collector
   pullPolicy: IfNotPresent
-  tag: "0.0.5"
+  tag: "0.0.6"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
