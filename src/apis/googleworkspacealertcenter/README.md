@@ -1,37 +1,36 @@
-# GoogleWorkspace's integration
+# Google Workspace Alert Center Integration
 
-This is a simple script to integrate with admin.google.com's reporting API and report to a Coralogix account. It replaces the [built-in fluentd Google Workspace integration](https://coralogix.com/docs/google-workspace-integration/).
+A simple script to integrate with admin.google.com's alert center API and report to a Coralogix account.
 
 ## Requirements
 
-- Enable Admin SDK API - https://console.developers.google.com/apis/api/admin.googleapis.com/overview?project=YOUR_PROJECT_ID
+- Enable Google Workspace Alert Center API - https://console.cloud.google.com/marketplace/product/google/alertcenter.googleapis.com
 - Create a Service Account with Domain-Wide Delegation - https://developers.google.com/workspace/guides/create-credentials#service-account
 
 ### Development/Usage
 
 ## Environment variables
 
-| Variable | Description           | Example | Required |
-|----------|-----------------------|---------| -------- |
-| IMPERSONATE_USER_EMAIL | The user to impersonate | `admin@yourdomain.com` | Yes |
+| Variable | Description                                                                            | Example | Required |
+|----------|----------------------------------------------------------------------------------------|---------| -------- |
+| IMPERSONATE_USER_EMAIL | The user to impersonate                                                                | `admin@yourdomain.com` | Yes |
 | GOOGLE_TARGET_PRINCIPAL | The service account to impersonate, used with `GOOGLE_APPLICATION_CREDENTIALS`         | `...@....iam.gserviceaccount.com` | Yes |
-| GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
-| GOOGLE_JSON_KEY | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS`  | `{... }` | NO |
-| LOG_TYPES | Comma separated list of log types to fetch | supported: `saml,drive,calendar,login,admin,groups,user_accounts,gcp,mobile` (default)   | No |
-| IGNORED_AUDIT_PARAMETERS | Comma separated list of audit parameters to ignore | e.g `IGNORED_AUDIT_PARAMETERS=doc_title` so that the name of the documents won't show in your logs. | No |
+| GOOGLE_APPLICATION_CREDENTIALS | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS` | `{... }` | NO |
+| GOOGLE_JSON_KEY | The Service Account JSON key if not using the default `GOOGLE_APPLICATION_CREDENTIALS` | `{... }` | NO |
 
 ## Running (prod)
 
 ```shell
 export IMPERSONATE_USER_EMAIL="user@yourdomain"
 export INTEGRATION_SEARCH_DIFF_IN_MINUTES="5"
+# IF USING GOOGLE_APPLICATION_CREDENTIALS then use GOOGLE_APPLICATION_CREDENTIALS with GOOGLE_TARGET_PRINCIPAL
 export GOOGLE_TARGET_PRINCIPAL="...@....iam.gserviceaccount.com"
 docker run -it --rm \
     -e CORALOGIX_LOG_URL="https://ingress.eu2.coralogix.com/api/v1/logs" \
     -e CORALOGIX_PRIVATE_KEY="$CORALOGIX_PRIVATE_KEY" \
     -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
     -e INTEGRATION_SEARCH_DIFF_IN_MINUTES="$INTEGRATION_SEARCH_DIFF_IN_MINUTES"
-    -e INTEGRATION_NAME="googleworkspace" \
+    -e INTEGRATION_NAME="googleworkspacealertcenter" \
     -e IMPERSONATE_USER_EMAIL="$IMPERSONATE_USER_EMAIL" \
     -e BASE_URL="$BASE_URL" \
     -e DRY_RUN="true" \
@@ -49,7 +48,7 @@ docker run -it --rm \
     -e CORALOGIX_APP_NAME="$CORALOGIX_APP_NAME" \
     -e GOOGLE_JSON_KEY="$GOOGLE_JSON_KEY" \
     -e IMPERSONATE_USER_EMAIL="$IMPERSONATE_USER_EMAIL" \
-    -e LOG_TYPES="$LOG_TYPES" \
+    -e INTEGRATION_NAME="googleworkspacealertcenter" \
     -v $(pwd):/app/src \
     -p 6000:6000 \
     cosmtrek/air -c air.toml
@@ -57,6 +56,5 @@ docker run -it --rm \
 
 ## References
 
-- https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin
+- https://developers.google.com/admin-sdk/alertcenter/guides
 - https://developers.google.com/workspace/guides/create-credentials#service-account
-- https://github.com/googleapis/google-api-go-client

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	alertcenter "google.golang.org/api/alertcenter/v1beta1"
+	"strings"
 	"time"
 )
 
@@ -32,6 +33,8 @@ func (g *GoogleWorkspaceAlertCenter) getAuditLogs(from, to time.Time) ([]AuditLo
 			if err != nil {
 				return nil, err
 			}
+			typeName := auditLog["data"].(map[string]interface{})["@type"].(string)
+			auditLog["AlertType"] = strings.Replace(typeName, "type.googleapis.com/google.apps.alertcenter.type.", "", -1)
 			auditLogs = append(auditLogs, auditLog)
 		}
 
