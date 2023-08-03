@@ -33,7 +33,11 @@ func (g *GoogleWorkspaceAlertCenter) getAuditLogs(from, to time.Time) ([]AuditLo
 			if err != nil {
 				return nil, err
 			}
-			typeName := auditLog["data"].(map[string]interface{})["@type"].(string)
+			data, ok := auditLog["data"]
+			if !ok {
+				return nil, fmt.Errorf("alert data is nil")
+			}
+			typeName := data.(map[string]interface{})["@type"].(string)
 			auditLog["AlertType"] = strings.Replace(typeName, "type.googleapis.com/google.apps.alertcenter.type.", "", -1)
 			auditLogs = append(auditLogs, auditLog)
 		}
