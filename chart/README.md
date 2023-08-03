@@ -8,14 +8,26 @@ This chart create a cronjob that collects audit logs from different sources and 
 
 ## Installing the Chart
 
-Using the [.env.example](.env.example) file, create a secret with your integrations configuration:
+Using an `.env` file, create a secret with your integrations configuration:
+
+Note: Remove inline comments and quotes from .env and key-values as the `--from-env-file` flag will include them into the secret. :warning:
+
+```
+CORALOGIX_PRIVATE_KEY=<CX_PrivateKey>
+IMPERSONATE_USER_EMAIL=admin@mail.com
+GOOGLE_TARGET_PRINCIPAL=useraccount.iam.gserviceaccount.com
+LASTPASS_CID=<LassPass_CID>
+LASTPASS_PROVHASH=<LassPass_Prov_Hash>
+```
+
+Create a kubernetes secret to store configs:
 
 ```bash
 export NAMESPACE="coralogix-audit-collector"
 
 kubectl -n $NAMESPACE create secret generic \
-    integrations-secrets \
-    --from-file=./.env.example \
+    coralogix-audit-collector-secret \
+    --from-env-file=./.env.example \
     --save-config \
     --dry-run=client \
     -o yaml |\
@@ -26,6 +38,7 @@ Then install the chart:
 
 ```bash
 helm upgrade --install coralogix-audit-collector \
+    coralogix-audit-collector \
     --namespace $NAMESPACE \
     --create-namespace \
     --values ./values.yaml \
@@ -34,13 +47,19 @@ helm upgrade --install coralogix-audit-collector \
 
 ### Values.yaml
 
+Global values:
+
+| Parameter | Description | Default | Required                                                |
+|-----------|-------------|---------|---------------------------------------------------------|
+| `coralogixLogUrl` | Coralogix audit logs endpoint: `https://ingress.<coralogix_domain>/api/v1/logs`  | `""` | Yes |
+
 Each integration contains the following values:
 
 | Parameter | Description | Default | Required                                                |
 |-----------|-------------|---------|---------------------------------------------------------|
-| `enabled` | Whether to enable the integration | `false` | Yes                                                     |
- | `baseUrl` | Base URL for the integration | `""` | Yes                                                     |
-| `schedule` | Cron schedule | "" | No - if not defined `.Values.cron.schedule` will be used |
+| `enabled` | Whether to enable the integration | `false` | Yes |
+| `baseUrl` | Base URL for the integration | `""` | Yes |
+| `schedule` | Cron schedule | `""` | No - if not defined `.Values.cron.schedule` will be used |
 
 ## Integrations
 
