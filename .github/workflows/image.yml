@@ -10,7 +10,6 @@ on:
       - './**.mod'
       - './**.sum'
       - '.github/workflows/image.yml'
-
   workflow_dispatch:
 
 env:
