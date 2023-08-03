@@ -97,8 +97,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
+          signoff: true
           commit-message: update chart version
           title: Update Chart Version to ${{ steps.appVersion.outputs.version }}
           body: |
             This PR updates the chart version to ${{ steps.appVersion.outputs.version }}.
           branch: update-chart-version
+          token: ${{ secrets.GITHUB_TOKEN }}
