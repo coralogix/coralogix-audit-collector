@@ -1,17 +1,9 @@
-name: Audit-Logs-Coralogix-Image
+name: Unit-Tests
 
 on:
   pull_request:
-  push:
-    branches:
-      - master
-    paths:
-      - './Dockerfile'
-      - './**.go'
-      - './**.mod'
-      - './**.sum'
-      - '.github/workflows/image.yml'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   tests:
