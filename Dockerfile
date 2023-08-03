@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/go:1.19 as builder
+FROM golang:1.19 as builder
 
 ENV GOPATH /c4c-ir
 ENV GOBIN /c4c-ir/app
