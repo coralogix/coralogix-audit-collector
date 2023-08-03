@@ -44,7 +44,7 @@ secretName: coralogix-audit-collector-secret
 image:
   repository: coralogixrepo/coralogix-audit-collector
   pullPolicy: IfNotPresent
-  tag: "0.0.6"
+  tag: "0.0.9"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

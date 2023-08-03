@@ -17,16 +17,7 @@ env:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Golang
-        uses: actions/setup-go@v3
-        with:
-          go-version: '1.19.5'
-      - run: go test ./... -v
+    uses: ./.github/workflows/tests.yaml
   build:
     runs-on: ubuntu-latest
     needs: tests
@@ -103,19 +94,11 @@ jobs:
           cmd: |
             yq -i '.image.tag = "${{ steps.appVersion.outputs.version }}"' './chart/values.yaml'
 
-      - name: Commit changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILE_TO_COMMIT: chart/values.yaml
-          DESTINATION_BRANCH: master
-        run: |
-          NEW_APP_VERSION="${{ steps.appVersion.outputs.version }}"
-          export MESSAGE="auto: update default version to $NEW_APP_VERSION"
-          export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
-          export CONTENT=$( base64 -i $FILE_TO_COMMIT )
-          gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="$DESTINATION_BRANCH" \
-            --field sha="$SHA"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: update chart version
+          title: Update Chart Version to ${{ steps.appVersion.outputs.version }}
+          body: |
+            This PR updates the chart version to ${{ steps.appVersion.outputs.version }}.
+          branch: update-chart-version
