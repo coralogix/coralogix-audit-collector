@@ -10,7 +10,6 @@ import (
 	alertcenter "google.golang.org/api/alertcenter/v1beta1"
 	"google.golang.org/api/impersonate"
 	"google.golang.org/api/option"
-	"log"
 	"strconv"
 )
 
@@ -37,7 +36,6 @@ func createService(targetPrincipal, rawJsonKey, impersonateUserEmail string) (*a
 			return nil, fmt.Errorf("unable to impersonate service account: %v", err)
 		}
 		config.Subject = impersonateUserEmail
-		log.Printf("this is: %s", config.Subject)
 		tokenSource = config.TokenSource(ctx)
 	} else {
 		ts, err := impersonate.CredentialsTokenSource(ctx, impersonate.CredentialsConfig{
