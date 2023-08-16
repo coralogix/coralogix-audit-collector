@@ -4,8 +4,11 @@ A simple script to integrate with admin.google.com's alert center API and report
 
 ## Requirements
 
-- Enable Google Workspace Alert Center API - https://console.cloud.google.com/marketplace/product/google/alertcenter.googleapis.com
+- Ensure to correct APIs are enabled 
+  - IAM Service Account Credentials API - https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com
+  - Google Workspace Alert Center API - https://console.cloud.google.com/marketplace/product/google/alertcenter.googleapis.com
 - Create a Service Account with Domain-Wide Delegation - https://developers.google.com/workspace/guides/create-credentials#service-account
+- The Domain-Wide Delegation OAuth scopes for Alert Center is - https://www.googleapis.com/auth/apps.alerts
 
 ### Development/Usage
 
